@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:55:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/02 17:28:15 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/02 21:58:31 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,16 @@ static	void check_walls(char **map, int height, int width)
 		i++;
 	}
 }
-static	void if_conditions(int player, int exit_door, int collct)
-{
-		if ((player > 1 || player < 1))
-	{
-		perror(" One player Required !\n");
-		exit(1);
-	}
-	if (exit_door > 1 || exit_door < 1)
-	{
-		perror(" One Door Required !\n");
-		exit(1);
-	}
-	if (collct < 1)
-	{
-		perror(" Atlsst one collct!\n");
-		exit(1);
-	}
-}
 
 static void	flood_fill(char **map, int x, int y)
 {
+	int	height;
+	int	width;
+
+	width = ft_strlen(map[0]);
+	height = y;
+	if(x < 0 || y < 0 || x >= width || y >= height)
+		return;
 	if(map[x][y] != wall)
 		map[x][y] = wall;
 	
@@ -144,6 +133,24 @@ void	player_pos(char **map, int height, int *x, int *y)
 			i++;
 		}
 		j++;
+	}
+}
+static	void if_conditions(int player, int exit_door, int collct)
+{
+	if ((player > 1 || player < 1))
+	{
+		perror(" One player Required !\n");
+		exit(1);
+	}
+	if (exit_door > 1 || exit_door < 1)
+	{
+		perror(" One Door Required !\n");
+		exit(1);
+	}
+	if (collct < 1)
+	{
+		perror(" Atlsst one collct!\n");
+		exit(1);
 	}
 }
 
