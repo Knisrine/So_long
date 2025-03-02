@@ -12,37 +12,37 @@
 
 #include "so_long.h"
 
-int ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
-    int i;
-    
-    i = 0;
-    while(s1[i] || s2[i])
-    {
-        if(s1[i] != s2[i])
-            return (1);
-        i++;
-    }
-    return (0);
+	int	i;
+
+	i = 0;
+	while (s1[i] || s2[i])
+	{
+		if (s1[i] != s2[i])
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-
-void     check_ext(char *s)
+void	check_ext(char *s)
 {
-    char *ext = ".ber";
-    char *str;
-    int n;
-    n = open(s, O_RDONLY);
+	char	*ext;
+	char	*str;
+	int		n;
 
-    if(n < 0)
-    {
-        perror("File Not Found !\n");
-        exit (1);
-    }
-    str = ft_strchr(s, '.');
-    if(ft_strcmp(ext, str))
-    {
-        perror("Invalid file\n");
-        exit (1);
-    }
+	ext = ".ber";
+	n = open(s, O_RDONLY);
+	if (n < 0)
+	{
+		perror("File Not Found !\n");
+		exit(1);
+	}
+	str = ft_strchr(s, '.');
+	if (ft_strcmp(ext, str))
+	{
+		perror("Invalid file\n");
+		exit(1);
+	}
 }

@@ -12,4 +12,4 @@
 
 #include "so_long.h"
 
-int   close(char )
+int	close(char)
