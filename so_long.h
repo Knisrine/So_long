@@ -4,12 +4,14 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include "./gnl/get_next_line.h"
-
+#include "./MLX42/include/MLX42/MLX42.h"
 typedef struct variables
 {
-    int n_player;
-    int n_collct;
-    int n_exit_dr;
+	int	exit_door;
+	int	player;
+	int	collct;
+    int height;
+    int width;
 }   var;
 
 #define	wall '1'

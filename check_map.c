@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:55:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/02 21:58:31 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/03 20:35:57 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_exit_door(char *s)
 
 	while (*s)
 	{
-		if (*s == 'P')
+		if (*s == 'E')
 			count++;
 		s++;
 	}
@@ -95,22 +95,24 @@ static	void check_walls(char **map, int height, int width)
 	}
 }
 
-static void	flood_fill(char **map, int x, int y)
+static void	flood_fill(char **map, int x, int y, var *v)
 {
-	int	height;
-	int	width;
-
-	width = ft_strlen(map[0]);
-	height = y;
-	if(x < 0 || y < 0 || x >= width || y >= height)
+	v->width = ft_strlen(map[0]);
+	if(x < 0 || y < 0 || x >= v->width || y >= v->height)
 		return;
-	if(map[x][y] != wall)
-		map[x][y] = wall;
-	
-	flood_fill(map, x, y - 1);
-	flood_fill(map, x + 1, y);
-	flood_fill(map, x, y + 1);
-	flood_fill(map, x - 1, y);
+	if(map[y][x] == wall)
+		return;
+	if(map[y][x] == 'C')
+		v->collct--;
+	if(map[y][x] == 'E')
+		v->exit_door--;
+	if(map[y][x] == 'P')
+		v->player--;
+	map[y][x]= wall;
+	flood_fill(map, x, y - 1, v);
+	flood_fill(map, x + 1, y, v);
+	flood_fill(map, x, y + 1, v);
+	flood_fill(map, x - 1, y, v);
 }
 
 void	player_pos(char **map, int height, int *x, int *y)
@@ -135,36 +137,31 @@ void	player_pos(char **map, int height, int *x, int *y)
 		j++;
 	}
 }
-static	void if_conditions(int player, int exit_door, int collct)
+static	void if_conditions(var v)
 {
-	if ((player > 1 || player < 1))
+	if ((v.player > 1 || v.player < 1))
 	{
-		perror(" One player Required !\n");
+		printf(" One player Required !\n");
 		exit(1);
 	}
-	if (exit_door > 1 || exit_door < 1)
+	if (v.exit_door > 1 || v.exit_door < 1)
 	{
-		perror(" One Door Required !\n");
+		printf(" One Exit_Door Required !\n");
 		exit(1);
 	}
-	if (collct < 1)
+	if (v.collct < 1)
 	{
-		perror(" Atlsst one collct!\n");
+		printf(" Atlsst one collct!\n");
 		exit(1);
 	}
 }
 
-static void	is_rectangl(char **map, int height)
+static void	is_rectangl(char **map, int height, var *v)
 {
-	int	player;
-	int	exit_door;
-	int	collct;
+
 	int i;
 	int j;
-	
-	player = 0;
-	exit_door = 0;
-	collct = 0;
+
 	i = 0;
 	j = 1;
 	while (i < height - 1)
@@ -175,34 +172,35 @@ static void	is_rectangl(char **map, int height)
 			exit(1);
 		}
 		check_walls(map, height, ft_strlen(*map));
-		player = check_player(map[i]);
-		exit_door = check_exit_door(map[i]);
-		collct = check_collct(map[i]);
+		v->player = check_player(map[i]);
+		v->exit_door = check_exit_door(map[i]);
+		v->collct = check_collct(map[i]);
 	}
-	if_conditions(player, exit_door, collct);
+	if_conditions(*v);
+
 	}
 
 void	valid_map(char *s)
 {
 	char	*lines;
 	char	**map;
-	int		height;
+	var		v;
 	int		fd;
 	int		i;
-	int	x;
-	int	y;
+	int		x;
+	int		y;
 
 	map = NULL;
 	lines = NULL;
-	height = 0;
+	v.height = 0;
 	i = 0;
 	////get height
 	fd = open(s, O_RDONLY);
 	while ((lines = get_next_line(fd)))
-		height++;
+		v.height++;
 	close(fd);
 	/////
-	map = malloc(sizeof(char *) * (height + 1));
+	map = malloc(sizeof(char *) * (v.height + 1));
 	if(!map)
 		exit(1);	
 	/////set map to **p
@@ -222,11 +220,15 @@ void	valid_map(char *s)
 		i++;
 	}
 	map[i] = NULL;
-	is_rectangl(map, height);
-	player_pos(map, height, &x, &y);
-	x = 0;
-	y = height;
-	flood_fill(map, x, y);
+	is_rectangl(map, v.height, &v);
+	player_pos(map, v.height, &x, &y);
+	flood_fill(map, x, y, &v);
+	
+	if(v.player != 0 || v.collct != 0 || v.exit_door != 0)
+	{
+		///free
+		printf("Incomplet Game !\n");
+		exit(1);
+	}
 	// flood_fill(map,)
-	// printf("%d",height);
 }

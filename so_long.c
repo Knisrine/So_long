@@ -6,11 +6,10 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:59:56 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/02 16:58:44 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/03 21:16:23 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./MLX42/include/MLX42/MLX42.h"
 #include "so_long.h"
 
 //  void *ptr = mlx_init(1200,600, "Window", false);
@@ -27,11 +26,16 @@
 
 int	main(int ac, char **av)
 {
-	// int n;
 	if (ac == 2)
 	{
 		check_ext(av[1]);
 		valid_map(av[1]);
 	}
+	void *ptr = mlx_init(1200,600, "Window", false);
+	if(ptr == NULL)
+		return(1);
+	mlx_image_t *img = mlx_new_image(ptr,1200, 1200);
+	mlx_image_to_window(ptr, img, 0, 0);
+	mlx_loop(ptr);
 	// system("leaks so_long");
 }
