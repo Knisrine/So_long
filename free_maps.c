@@ -1,15 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close.c                                            :+:      :+:    :+:   */
+/*   free_maps.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/27 05:40:30 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/06 20:13:15 by nikhtib          ###   ########.fr       */
+/*   Created: 2025/03/06 20:15:23 by nikhtib           #+#    #+#             */
+/*   Updated: 2025/03/06 20:24:24 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	close(char);
+static	void free_map(char **map)
+{
+	while(*map)
+	{
+		free(*map);
+		map++;
+	}
+}
+void    free_maps(char **map, char **new_map)
+{
+    free_map(map);
+    free (map);
+    free_map(new_map);
+    free(new_map);
+}

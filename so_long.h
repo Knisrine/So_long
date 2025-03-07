@@ -10,13 +10,24 @@ typedef struct variables
 	int	exit_door;
 	int	player;
 	int	collct;
-    int height;
+    int  height;
     int width;
+
 }   var;
+
+typedef struct s_data
+{
+	void *player_img;
+	void *collct_img;
+	void *exitdr_img;
+}	data;
 
 #define	wall '1'
 int		main(int ac, char **av);
+char	**valid_map(char *s);
 void	check_ext(char *s);
-void	valid_map(char *s);
+int		len_map(char *s, var v);
+int		is_rectangl(char **map, int height, var *v);
+void	free_maps(char **map, char **new_map);
 
 #endif

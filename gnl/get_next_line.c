@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 22:10:36 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/02/21 20:36:20 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/06 23:32:31 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char	*ft_strdup(char *s1)
 	int		len;
 	int		i;
 
-	len = ft_strlen((char *)s1);
-	ptr = malloc(len * sizeof(char) + 1);
+	len = ft_strlen(s1);
+	ptr = malloc(len + 1);
 	if (!ptr)
 		return (NULL);
 	i = 0;
