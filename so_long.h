@@ -23,6 +23,9 @@ typedef struct s_data
 }	data;
 
 #define	wall '1'
+#define	floor '0'
+#define	coll 'C'
+#define	plr 'P'
 int		main(int ac, char **av);
 char	**valid_map(char *s);
 void	check_ext(char *s);

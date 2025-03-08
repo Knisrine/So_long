@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:59:56 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/07 01:46:38 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/08 01:54:49 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,52 +26,120 @@ int	main(int ac, char **av)
 	v.height = len_map(av[1], v);
 	v.width =ft_strlen(map[0]);
 	
-	void *ptr = mlx_init(1200,600, "Window", false);
+	void *ptr = mlx_init(830,350, "Window", false);
 	if(!ptr)
 		return(1);
-	mlx_texture_t* texture = mlx_load_png("./textures/img00.png");
-	if(!texture)
-	{
-		printf("errr");
+	mlx_texture_t* w_texture = mlx_load_png("./textures/pp.png");
+	if(!w_texture)
 		exit(1);
-	}
-	// mlx_image_t* img = mlx_new_image(ptr,1400, 1200);
-	 mlx_image_t* img = mlx_texture_to_image(ptr,texture);
-	if(!img)
+    mlx_image_t* put_wall = mlx_texture_to_image(ptr ,w_texture);
+	if(!put_wall)
 	{
 		printf("eeerrr");
 		exit(1);
 	}
-
-	if (mlx_image_to_window(ptr, img, 0, 0) < 0)
+	
+	mlx_texture_t* f_texture = mlx_load_png("./textures/bg.png");
+	if(!f_texture)
 		exit(1);
-
-	mlx_texture_t* texture1 = mlx_load_png("./textures/texture00.png");
-    mlx_image_t* img1 = mlx_texture_to_image(ptr ,texture1);
-	if(!img1)
+    mlx_image_t* put_floor = mlx_texture_to_image(ptr ,f_texture);
+	if(!put_floor)
 	{
 		printf("eeerrr");
 		exit(1);
 	}
-	//  mlx_image_t* img1 = mlx_texture_to_image(ptr,texture1);
+	mlx_texture_t* col_texture = mlx_load_png("./textures/img00.png");
+	if(!col_texture)
+		exit(1);
+    mlx_image_t* put_col = mlx_texture_to_image(ptr ,col_texture);
+	if(!put_col)
+	{
+		printf("eeerrr");
+		exit(1);
+	}
+	mlx_texture_t* plr_texture = mlx_load_png("./textures/cat.png");
+	if(!col_texture)
+		exit(1);
+    mlx_image_t* put_plr = mlx_texture_to_image(ptr ,plr_texture);
+	if(!put_plr)
+	{
+		printf("eeerrr");
+		exit(1);
+	}
+	// mlx_texture_t* plr_texture = mlx_load_png("./textures/cat.png");
+	// if(!col_texture)
+	// 	exit(1);
+    // mlx_image_t* put_plr = mlx_texture_to_image(ptr ,plr_texture);
+	// if(!put_plr)
+	// {
+	// 	printf("eeerrr");
+	// 	exit(1);
+	// }
 	int j = 0;
 	int i;
-    // printf("[%d]", v.height);
-	// exit(1);
 	while(j < v.height)
     {
 		i = 0;
-		// printf("[%d]\n", j);
         while (i < v.width)
         {
-            if(map[j][i] == wall)
-			mlx_image_to_window(ptr,img1, (i *32), (j * 32));
+			if(map[j][i] == wall)
+			{
+				mlx_image_to_window(ptr,put_floor, (i *32), (j * 32));
+				if(!put_floor)
+				{
+					printf("failed to open file");
+					exit(1);
+				}
+				mlx_image_to_window(ptr,put_wall, (i *32), (j * 32));
+				if(!put_wall)
+				{
+					printf("failed to open file\n");
+					exit(1);
+				}
+			}
+			if(map[j][i] == floor)
+			{
+				mlx_image_to_window(ptr,put_floor, (i *32), (j * 32));
+				if(!put_floor)
+				{
+					printf("failed to open file");
+					exit(1);
+				}
+			}
+			if(map[j][i] == coll)
+			{
+				mlx_image_to_window(ptr,put_floor, (i *32), (j * 32));
+				if(!put_floor)
+				{
+					printf("failed to open file");
+					exit(1);
+				}
+				mlx_image_to_window(ptr,put_col, (i *32), (j * 32));
+				if(!put_floor)
+				{
+					printf("failed to open file");
+					exit(1);
+				}
+			}
+			if(map[j][i] == plr)
+			{
+				mlx_image_to_window(ptr,put_floor, (i *32), (j * 32));
+				if(!put_floor)
+				{
+					printf("failed to open file");
+					exit(1);
+				}
+				mlx_image_to_window(ptr,put_plr, (i *32), (j * 32));
+				if(!put_floor)
+				{
+					printf("failed to open file");
+					exit(1);
+				}
+			}
 			i++;
-        }
-        
-        j++;
-    }
-    
+		}
+		j++;
+	}
 	// if(!texture)
 	// {
 	// 	printf("errr");
