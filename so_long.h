@@ -7,12 +7,17 @@
 #include "./MLX42/include/MLX42/MLX42.h"
 typedef struct variables
 {
-	int	exit_door;
-	int	player;
-	int	collct;
-    int  height;
-    int width;
-
+	mlx_image_t*	put_floor;
+	mlx_image_t*	put_plr;
+	mlx_t* 			ptr;
+	int				exit_door;
+	int				player;
+	int				collct;
+    int				height;
+    int				width;
+	char			**map;
+	int				x;
+	int				y;
 }   var;
 
 typedef struct s_data
@@ -26,11 +31,15 @@ typedef struct s_data
 #define	floor '0'
 #define	coll 'C'
 #define	plr 'P'
+#define	ex_dr 'E'
+#define	ennemi 'e'
+
 int		main(int ac, char **av);
 char	**valid_map(char *s);
 void	check_ext(char *s);
 int		len_map(char *s, var v);
 int		is_rectangl(char **map, int height, var *v);
 void	free_maps(char **map, char **new_map);
+void	player_pos(char **map, int height, int *x, int *y);
 
 #endif
