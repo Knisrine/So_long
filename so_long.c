@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:59:56 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/09 02:49:39 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/10 15:54:12 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,97 +17,295 @@ void my_hook(mlx_key_data_t keydata, void* param)
 	var* v = (var *) param;
 	static int count_move;
 
-		// printf("---> %d\n", v->y);
 	if(keydata.key == MLX_KEY_W && keydata.action)
 	{
-		v->put_plr->instances->y -= 32 ;
-		count_move++;
+		if(v->map[v->x - 1][v->y] != wall)
+		{
+			if(v->map[v->x - 1][v->y] == coll)
+			{
+				v->put_plr->instances->y -= 32 ;
+				v->x -= 1;
+				mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
+				v->map[v->x][v->y] = floor;
+				mlx_delete_image(v->ptr, v->put_plr);
+				v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
+				if(!v->put_plr)
+				{
+					printf("0eeerrr");
+					exit(1);
+				}
+				mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
+				count_move++;
+				v->collct--;
+				printf("%d\n", count_move);
+			}
+			else
+			{
+				v->put_plr->instances->y -= 32 ;
+				v->x -= 1;
+				count_move++;
+				printf("%d\n", count_move);
+			}
+			if(v->collct == 0 && (v->x == v->i) &&(v->y == v->j))
+				mlx_delete_image(v->ptr, v->put_plr);
+		}	
 	}
 	else if(keydata.key == MLX_KEY_S && keydata.action != MLX_PRESS)
 	{
-		// printf("hna \n");
-		printf("---> %d\n", v->put_plr->instances->y);
-		v->put_plr->instances->y += 32 ;
-		count_move++;
+		if(v->map[v->x +1][v->y] != wall)
+		{
+			if(v->map[v->x + 1][v->y] == coll)
+			{
+			v->put_plr->instances->y += 32;
+			v->x += 1;
+			mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
+			v->map[v->x][v->y] = floor;
+			mlx_delete_image(v->ptr, v->put_plr);
+			v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
+			if(!v->put_plr)
+			{
+				printf("0eeerrr");
+				exit(1);
+			}
+			mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
+			count_move++;
+			v->collct--;
+			printf("%d\n", count_move);
+			}
+			else
+			{
+				v->put_plr->instances->y += 32;
+				v->x += 1;
+				count_move++;
+				printf("%d\n", count_move);
+			}
+		}
 	}
 	else if(keydata.key == MLX_KEY_A && keydata.action != MLX_PRESS)
 	{
-		v->put_plr->instances->x -= 32 ;
-		count_move++;
+		if(v->map[v->x][v->y - 1] != wall)
+		{
+			if(v->map[v->x][v->y - 1] == coll)
+			{
+				v->put_plr->instances->x -= 32 ;
+				v->y -= 1;
+				mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
+				v->map[v->x][v->y] = floor;
+				mlx_delete_image(v->ptr, v->put_plr);
+				v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
+				if(!v->put_plr)
+				{
+					printf("0eeerrr");
+					exit(1);
+				}
+				mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
+				count_move++;
+				v->collct--;
+				printf("%d\n", count_move);
+				
+			}
+			else
+			{
+				v->put_plr->instances->x -= 32 ;
+				v->y -= 1;
+				count_move++;
+				printf("%d\n", count_move);
+			}
+		}
 	}
 	else if(keydata.key == MLX_KEY_D && keydata.action != MLX_PRESS)
 	{
-		v->put_plr->instances->x += 32 ;
-		count_move++;
+		if(v->map[v->x][v->y + 1] != wall)
+		{
+			if(v->map[v->x][v->y + 1] == coll)
+			{
+				v->put_plr->instances->x += 32 ;
+				v->y += 1;
+				mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
+				v->map[v->x][v->y] = floor;
+				mlx_delete_image(v->ptr, v->put_plr);
+				v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
+				if(!v->put_plr)
+				{
+					printf("0eeerrr");
+					exit(1);
+				}
+					mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
+				count_move++;
+				v->collct--;
+				printf("%d\n", count_move);
+			}
+			else
+			{
+				v->put_plr->instances->x += 32 ;
+				v->y += 1;
+				count_move++;
+				printf("%d\n", count_move);
+			}
+		}
+	}
+}
+
+void	put_player(var *v)
+{
+	v->y = 0;
+	while(v->y < v->height)
+	{
+		v->x = 0;
+        while (v->x < v->width)
+        {
+			if(v->map[v->y][v->x] == plr)
+			{
+				mlx_image_to_window(v->ptr, v->put_floor, (v->x *32), (v->y * 32));
+				if(!v->put_floor)
+				{
+					printf("Error: failed to load floor");
+					exit(1);
+				}
+				mlx_image_to_window(v->ptr,v->put_plr, (v->x *32), (v->y * 32));
+				if(!v->put_plr)
+				{
+					printf("Error: failed to load player");
+					exit(1);
+				}
+			}
+			v->x++;
+		}
+		v->y++;
+	}
+}
+
+static int	check_collct(char *s)
+{
+	static int	count;
+
+	while (*s)
+	{
+		if (*s == 'C')
+			count++;
+		s++;
+	}
+	return (count);
+}
+static int	check_player(char *s)
+{
+	static int	count;
+
+	while (*s)
+	{
+		if (*s == 'P')
+			count++;
+		s++;
+	}
+	return (count);
+}
+
+static int	check_exit_door(char *s)
+{
+	static int	count;
+
+	while (*s)
+	{
+		if (*s == 'E')
+			count++;
+		s++;
+	}
+	return (count);
+}
+static	void if_conditions(var v)
+{
+	if ((v.player > 1 || v.player < 1))
+	{
+		printf(" One player Required !\n");
+		exit(1);
+	}
+	if (v.exit_door > 1 || v.exit_door < 1)
+	{
+		printf(" One Exit_Door Required !\n");
+		exit(1);
+	}
+	if (v.collct < 1)
+	{
+		printf(" at least one collct !\n");
+		exit(1);
 	}
 }
 
 int	main(int ac, char **av)
 {
+	
+	int i;
 	var v;
 	v.height = 0;
-	char **map;
 	if (ac == 2)
 	{
 		check_ext(av[1]);
-		map = valid_map(av[1]);
+		v.map = valid_map(av[1]);
 	
 	v.height = len_map(av[1], v);
-	v.width =ft_strlen(map[0]);
-
+	v.width =ft_strlen(v.map[0]);
 	
+	i = 0;
+	while (i < v.height - 1)
+	{
+		v.player = check_player(v.map[i]);
+		v.exit_door = check_exit_door(v.map[i]);
+		v.collct = check_collct(v.map[i]);
+		i++;
+	}
+	if_conditions(v);
 	v.ptr = mlx_init(830,350, "Window", false);
 	if(!v.ptr)
 		return(1);
-	mlx_texture_t* w_texture = mlx_load_png("./textures/wall.png");
-	if(!w_texture)
+	v.w_texture = mlx_load_png("./textures/wall.png");
+	if(!v.w_texture)
 		exit(1);
-    mlx_image_t* put_wall = mlx_texture_to_image(v.ptr ,w_texture);
-	if(!put_wall)
+    v.put_wall = mlx_texture_to_image(v.ptr ,v.w_texture);
+	if(!v.put_wall)
 	{
-		printf("5eeerrr");
+		printf("Error: failed to put Wall");
 		exit(1);
 	}
-	mlx_texture_t* f_texture = mlx_load_png("./textures/bckg.png");
-	if(!f_texture)
+	v.f_texture = mlx_load_png("./textures/bckg.png");
+	if(!v.f_texture)
 		exit(1);
-    mlx_image_t* put_floor = mlx_texture_to_image(v.ptr ,f_texture);
-	if(!put_floor)
+    v.put_floor = mlx_texture_to_image(v.ptr ,v.f_texture);
+	if(!v.put_floor)
 	{
-		printf("4eeerrr");
+		printf("Error: failed to put floor_texture");
 		exit(1);
 	}
-	mlx_texture_t* col_texture = mlx_load_png("./textures/coll.png");
-	if(!col_texture)
+	v.col_texture = mlx_load_png("./textures/coll.png");
+	if(!v.col_texture)
 		exit(1);
-    mlx_image_t* put_col = mlx_texture_to_image(v.ptr ,col_texture);
-	if(!put_col)
+   v.put_col = mlx_texture_to_image(v.ptr ,v.col_texture);
+	if(!v.put_col)
 	{
-		printf("3eeerrr");
+		printf("Error: failed to put coll_textr");
 		exit(1);
 	}
-	mlx_texture_t* door_texture = mlx_load_png("./textures/door1.png");
-	if(!door_texture)
+	v.door_texture = mlx_load_png("./textures/door1.png");
+	if(!v.door_texture)
 		exit(1);
-    mlx_image_t* put_door = mlx_texture_to_image(v.ptr ,door_texture);
-	if(!put_door)
+    v.put_door = mlx_texture_to_image(v.ptr ,v.door_texture);
+	if(!v.put_door)
 	{
-		printf("2eeerrr");
+		printf("Error: failed to put door_texture");
 		exit(1);
 	}
-	mlx_texture_t* ennemi_texture = mlx_load_png("./textures/ennemi.png");
-	if(!ennemi_texture)
+	v.ennemi_texture = mlx_load_png("./textures/ennemi.png");
+	if(!v.ennemi_texture)
 		exit(1);
-    mlx_image_t* put_ennemi = mlx_texture_to_image(v.ptr ,ennemi_texture);
-	if(!put_ennemi)
+    v.put_ennemi = mlx_texture_to_image(v.ptr ,v.ennemi_texture);
+	if(!v.put_ennemi)
 	{
-		printf("1eeerrr");
+		printf("Error: failed to put Ennemi_texture\n");
 		exit(1);
 	}
-	mlx_texture_t* plr_texture = mlx_load_png("./textures/player.png");
-	if(!plr_texture)
+	v.plr_texture = mlx_load_png("./textures/player.png");
+	if(!v.plr_texture)
 		exit(1);
-    v.put_plr = mlx_texture_to_image(v.ptr ,plr_texture);
+    v.put_plr = mlx_texture_to_image(v.ptr ,v.plr_texture);
 	if(!v.put_plr)
 	{
 		printf("0eeerrr");
@@ -119,10 +317,10 @@ int	main(int ac, char **av)
 		v.x = 0;
         while (v.x < v.width)
         {
-			if(map[v.y][v.x] == floor)
+			if(v.map[v.y][v.x] == floor)
 			{
-				mlx_image_to_window(v.ptr,put_floor, (v.x *32), (v.y * 32));
-				if(!put_floor)
+				mlx_image_to_window(v.ptr,v.put_floor, (v.x *32), (v.y * 32));
+				if(!v.put_floor)
 				{
 					printf("failed to open file");
 					exit(1);
@@ -138,61 +336,61 @@ int	main(int ac, char **av)
 		v.x = 0;
         while (v.x < v.width)
         {
-			if(map[v.y][v.x] == wall)
+			if(v.map[v.y][v.x] == wall)
 			{
-				mlx_image_to_window(v.ptr,put_floor, (v.x *32), (v.y * 32));
-				if(!put_floor)
+				mlx_image_to_window(v.ptr,v.put_floor, (v.x *32), (v.y * 32));
+				if(!v.put_floor)
 				{
 					printf("failed to open file");
 					exit(1);
 				}
-				mlx_image_to_window(v.ptr,put_wall, (v.x *32), (v.y * 32));
-				if(!put_wall)
+				mlx_image_to_window(v.ptr,v.put_wall, (v.x *32), (v.y * 32));
+				if(!v.put_wall)
 				{
 					printf("failed to open file\n");
 					exit(1);
 				}
 			}
-			if(map[v.y][v.x] == coll)
+			if(v.map[v.y][v.x] == coll)
 			{
-				mlx_image_to_window(v.ptr,put_floor, (v.x *32), (v.y * 32));
-				if(!put_floor)
+				mlx_image_to_window(v.ptr,v.put_floor, (v.x *32), (v.y * 32));
+				if(!v.put_floor)
 				{
 					printf("failed to open file");
 					exit(1);
 				}
-				mlx_image_to_window(v.ptr,put_col, (v.x *32), (v.y * 32));
-				if(!put_floor)
+				mlx_image_to_window(v.ptr,v.put_col, (v.x *32), (v.y * 32));
+				if(!v.put_floor)
 				{
 					printf("failed to open file");
 					exit(1);
 				}
 			}
-			if(map[v.y][v.x] == ex_dr)
+			if(v.map[v.y][v.x] == ex_dr)
 			{
-				mlx_image_to_window(v.ptr,put_floor, (v.x *32), (v.y * 32));
-				if(!put_floor)
+				mlx_image_to_window(v.ptr,v.put_floor, (v.x *32), (v.y * 32));
+				if(!v.put_floor)
 				{
 					printf("failed to open file");
 					exit(1);
 				}
-				mlx_image_to_window(v.ptr,put_door, (v.x *32), (v.y * 32));
-				if(!put_door)
+				mlx_image_to_window(v.ptr,v.put_door, (v.x *32), (v.y * 32));
+				if(!v.put_door)
 				{
 					printf("failed to open file");
 					exit(1);
 				}
 			}
-			if(map[v.y][v.x] == ennemi)
+			if(v.map[v.y][v.x] == ennemi)
 			{
-				mlx_image_to_window(v.ptr,put_floor, (v.x *32), (v.y * 32));
-				if(!put_floor)
+				mlx_image_to_window(v.ptr,v.put_floor, (v.x *32), (v.y * 32));
+				if(!v.put_floor)
 				{
 					printf("failed to open file");
 					exit(1);
 				}
-				mlx_image_to_window(v.ptr,put_ennemi, (v.x *32), (v.y * 32));
-				if(!put_ennemi)
+				mlx_image_to_window(v.ptr,v.put_ennemi, (v.x *32), (v.y * 32));
+				if(!v.put_ennemi)
 				{
 					printf("failed to open file");
 					exit(1);
@@ -204,35 +402,11 @@ int	main(int ac, char **av)
 		v.y++;
 	}
 
-	v.y = 0;
-	while(v.y < v.height)
-	{
-		v.x = 0;
-        while (v.x < v.width)
-        {
-			if(map[v.y][v.x] == plr)
-			{
-				mlx_image_to_window(v.ptr,put_floor, (v.x *32), (v.y * 32));
-				if(!put_floor)
-				{
-					printf("failed to open file");
-					exit(1);
-				}
-				mlx_image_to_window(v.ptr,v.put_plr, (v.x *32), (v.y * 32));
-				if(!v.put_plr)
-				{
-					printf("failed to open file");
-					exit(1);
-				}
-			}
-			v.x++;
-		}
-		v.y++;
-	}
+		put_player(&v);
 	
-		// move_player(map, i, j);
-		// mlx_key_data_t data;
-		player_pos(map, v.height, &v.y, &v.x);
+
+		player_pos(v.map, v.height, &v.y, &v.x);
+		ex_door_pos(v.map, v.height, &v.i, &v.j);
 		mlx_key_hook(v.ptr, my_hook, &v);
 		mlx_loop(v.ptr);
 	}
