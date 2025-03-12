@@ -6,56 +6,40 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:59:56 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/12 19:43:48 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/12 21:30:40 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void my_hook(mlx_key_data_t keydata, void* param)
+static	void move_right(var *v)
 {
-	var* v = (var *) param;
-	static int count_move;
-
-	if(keydata.key == MLX_KEY_W && keydata.action)
+	v->put_plr->instances->x += 32 ;
+		v->y += 1;
+}
+static	void move_down(var *v)
+{
+	v->put_plr->instances->y += 32;
+		v->x += 1;
+}
+static	void move_up(var *v)
+{
+	v->put_plr->instances->y -= 32;
+		v->x -= 1;
+		
+}
+static	void move_left(var *v)
+{
+	v->put_plr->instances->x -= 32 ;
+	v->y -= 1;
+}
+static	void	press_w(var *v)
+{
+	if(v->map[v->x - 1][v->y] != wall)
 	{
-		if(v->map[v->x - 1][v->y] != wall)
+		if(v->map[v->x - 1][v->y] == coll)
 		{
-			if(v->map[v->x - 1][v->y] == coll)
-			{
-				v->put_plr->instances->y -= 32 ;
-				v->x -= 1;
-				mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
-				v->map[v->x][v->y] = floor;
-				mlx_delete_image(v->ptr, v->put_plr);
-				v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
-				if(!v->put_plr)
-				{
-					printf("0eeerrr");
-					exit(1);
-				}
-				mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
-				count_move++;
-				v->collct--;
-				printf("%d\n", count_move);
-			}
-			else
-			{
-				v->put_plr->instances->y -= 32 ;
-				v->x -= 1;
-				count_move++;
-				printf("%d\n", count_move);
-			}
-		}	
-	}
-	else if(keydata.key == MLX_KEY_S && keydata.action != MLX_PRESS)
-	{
-		if(v->map[v->x +1][v->y] != wall)
-		{
-			if(v->map[v->x + 1][v->y] == coll)
-			{
-			v->put_plr->instances->y += 32;
-			v->x += 1;
+			move_up(v);
 			mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
 			v->map[v->x][v->y] = floor;
 			mlx_delete_image(v->ptr, v->put_plr);
@@ -66,84 +50,112 @@ void my_hook(mlx_key_data_t keydata, void* param)
 				exit(1);
 			}
 			mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
-			count_move++;
 			v->collct--;
-			printf("%d\n", count_move);
-			}
-			else
-			{
-				v->put_plr->instances->y += 32;
-				v->x += 1;
-				count_move++;
-				printf("%d\n", count_move);
-			}
-			if(v->collct == 0 && (v->x == v->i) &&(v->y == v->j))
-				v->put_wall = mlx_texture_to_image(v->ptr, v->w_texture);
-				// mlx_delete_image(v->ptr, v->put_plr);
 		}
-	}
-	else if(keydata.key == MLX_KEY_A && keydata.action != MLX_PRESS)
+		else
+			move_up(v);
+	}	
+}
+
+static	void press_s(var *v)
+{
+	if(v->map[v->x +1][v->y] != wall)
 	{
-		if(v->map[v->x][v->y - 1] != wall)
+		if(v->map[v->x + 1][v->y] == coll)
+		{
+			move_down(v);
+			mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
+			v->map[v->x][v->y] = floor;
+			mlx_delete_image(v->ptr, v->put_plr);
+			v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
+			if(!v->put_plr)
+			{
+				//free
+				printf("0eeerrr");
+				exit(1);
+			}
+				mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
+			v->collct--;
+		}
+		else
+			move_down(v);
+		if(v->collct == 0 && (v->x == v->i) &&(v->y == v->j))
+			mlx_delete_image(v->ptr, v->put_plr);
+	}
+}
+static	void press_a(var *v)
+{
+	if(v->map[v->x][v->y - 1] != wall)
 		{
 			if(v->map[v->x][v->y - 1] == coll)
 			{
-				v->put_plr->instances->x -= 32 ;
-				v->y -= 1;
+				move_left(v);
 				mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
 				v->map[v->x][v->y] = floor;
 				mlx_delete_image(v->ptr, v->put_plr);
 				v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
 				if(!v->put_plr)
 				{
+					//free
 					printf("0eeerrr");
 					exit(1);
 				}
 				mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
-				count_move++;
 				v->collct--;
-				printf("%d\n", count_move);
-				
 			}
 			else
-			{
-				v->put_plr->instances->x -= 32 ;
-				v->y -= 1;
-				count_move++;
-				printf("%d\n", count_move);
-			}
+				move_left(v);
 		}
+}
+static	void press_d(var *v)
+{
+	if(v->map[v->x][v->y + 1] != wall)
+	{
+		if(v->map[v->x][v->y + 1] == coll)
+		{
+			move_right(v);
+			mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
+			v->map[v->x][v->y] = floor;
+			mlx_delete_image(v->ptr, v->put_plr);
+			v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
+			if(!v->put_plr)
+			{
+				//free
+				printf("0eeerrr");
+				exit(1);
+			}
+			mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
+			v->collct--;
+		}
+		else
+			move_right(v);
+	}
+}
+
+void my_hook(mlx_key_data_t keydata, void* param)
+{
+	var* v = (var *) param;
+	static int count_move;
+
+	if(keydata.key == MLX_KEY_W && keydata.action)
+	{
+		press_w(v);
+		count_move++;
+	}
+	else if(keydata.key == MLX_KEY_S && keydata.action != MLX_PRESS)
+	{
+		press_s(v);
+		count_move++;
+	}
+	else if(keydata.key == MLX_KEY_A && keydata.action != MLX_PRESS)
+	{
+		press_a(v);
+		count_move++;
 	}
 	else if(keydata.key == MLX_KEY_D && keydata.action != MLX_PRESS)
 	{
-		if(v->map[v->x][v->y + 1] != wall)
-		{
-			if(v->map[v->x][v->y + 1] == coll)
-			{
-				v->put_plr->instances->x += 32 ;
-				v->y += 1;
-				mlx_image_to_window(v->ptr, v->put_floor, (v->y *32), (v->x * 32));
-				v->map[v->x][v->y] = floor;
-				mlx_delete_image(v->ptr, v->put_plr);
-				v->put_plr = mlx_texture_to_image(v->ptr , v->plr_texture);
-				if(!v->put_plr)
-				{
-					printf("0eeerrr");
-					exit(1);
-				}
-					mlx_image_to_window(v->ptr, v->put_plr, (v->y *32), (v->x * 32));
-				count_move++;
-				v->collct--;
-				printf("%d\n", count_move);
-			}
-			else
-			{
-				v->put_plr->instances->x += 32 ;
-				v->y += 1;
-				count_move++;
-				printf("%d\n", count_move);
-			}
-		}
+		press_d(v);
+		count_move++;
 	}
 }
 
