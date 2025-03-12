@@ -5,6 +5,7 @@
 # include <stdlib.h>
 # include "./gnl/get_next_line.h"
 #include "./MLX42/include/MLX42/MLX42.h"
+
 typedef struct variables
 {
 	mlx_image_t*	put_floor;
@@ -45,7 +46,7 @@ typedef struct s_data
 #define	plr 'P'
 #define	ex_dr 'E'
 #define	ennemi 'e'
-
+#define TILE_SIZE 32
 int		main(int ac, char **av);
 char	**valid_map(char *s);
 void	check_ext(char *s);

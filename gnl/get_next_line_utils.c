@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 01:07:47 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/02/28 16:48:24 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/12 18:11:49 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ char	*ext_line(char *s)
 
 	len = 0;
 	while (s[len] && s[len] != '\n')
-		len++;
-	if (s[len] == '\n')
 		len++;
 	line = malloc(len + 1);
 	if (!line)

@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:59:56 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/10 15:54:12 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/12 19:43:48 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ void my_hook(mlx_key_data_t keydata, void* param)
 				count_move++;
 				printf("%d\n", count_move);
 			}
-			if(v->collct == 0 && (v->x == v->i) &&(v->y == v->j))
-				mlx_delete_image(v->ptr, v->put_plr);
 		}	
 	}
 	else if(keydata.key == MLX_KEY_S && keydata.action != MLX_PRESS)
@@ -79,6 +77,9 @@ void my_hook(mlx_key_data_t keydata, void* param)
 				count_move++;
 				printf("%d\n", count_move);
 			}
+			if(v->collct == 0 && (v->x == v->i) &&(v->y == v->j))
+				v->put_wall = mlx_texture_to_image(v->ptr, v->w_texture);
+				// mlx_delete_image(v->ptr, v->put_plr);
 		}
 	}
 	else if(keydata.key == MLX_KEY_A && keydata.action != MLX_PRESS)
@@ -254,7 +255,7 @@ int	main(int ac, char **av)
 		i++;
 	}
 	if_conditions(v);
-	v.ptr = mlx_init(830,350, "Window", false);
+	v.ptr = mlx_init(TILE_SIZE * v.width, TILE_SIZE * v.height, "Window", false);
 	if(!v.ptr)
 		return(1);
 	v.w_texture = mlx_load_png("./textures/wall.png");

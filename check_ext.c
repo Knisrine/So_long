@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 03:56:19 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/02/28 16:54:40 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/12 19:37:55 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ void	check_ext(char *s)
 	n = open(s, O_RDONLY);
 	if (n < 0)
 	{
-		perror("File Not Found !\n");
-		exit(1);
+		perror("File Not Found !");
+		exit(2);
+			
 	}
 	str = ft_strchr(s, '.');
 	if (ft_strcmp(ext, str))
 	{
-		perror("Invalid file\n");
-		exit(1);
+		perror("Invalid file");
+		exit(2);
 	}
 }
