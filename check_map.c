@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:55:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/10 14:41:31 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/13 23:08:50 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,7 @@ char	**valid_map(char *s)
 		}
 		i++;
 	}
+		free_map(new_map);
 	
 	return (map);
 }

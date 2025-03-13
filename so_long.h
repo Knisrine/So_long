@@ -53,6 +53,8 @@ void	check_ext(char *s);
 int		len_map(char *s, var v);
 int		is_rectangl(char **map, int height, var *v);
 void	free_maps(char **map, char **new_map);
+void	free_map(char **map);
+void	print_error(var *v);
 void	player_pos(char **map, int height, int *x, int *y);
 void	ex_door_pos(char **map, int height, int *x, int *y);
 

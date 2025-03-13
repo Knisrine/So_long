@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_maps.c                                        :+:      :+:    :+:   */
+/*   print_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 20:15:23 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/13 22:58:29 by nikhtib          ###   ########.fr       */
+/*   Created: 2025/03/13 22:13:10 by nikhtib           #+#    #+#             */
+/*   Updated: 2025/03/13 23:24:57 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void free_map(char **map)
+void	print_error(var *v)
 {
-	while(*map)
-	{
-		free(*map);
-		map++;
-	}
-}
-void    free_maps(char **map, char **new_map)
-{
-    free_map(map);
-    free (map);
-    free_map(new_map);
-    free(new_map);
+	printf("Error : failed to put texture\n");
+	free_map(v->map);
 }
