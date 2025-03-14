@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:44:38 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 13:44:56 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/14 22:30:19 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	press_d(var *v)
 		else
 			move_right(v);
 	}
+	exit_player(v);
 }

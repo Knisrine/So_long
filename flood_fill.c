@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len_map.c                                          :+:      :+:    :+:   */
+/*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 14:51:26 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 21:44:24 by nikhtib          ###   ########.fr       */
+/*   Created: 2025/03/14 18:28:44 by nikhtib           #+#    #+#             */
+/*   Updated: 2025/03/14 18:40:59 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	len_map(char *s, var v)
+void	flood_fill(char **map, int x, int y, var *v)
 {
-	int		fd;
-	char	*lines;
-
-	fd = 0;
-	lines = NULL;
-	fd = open(s, O_RDONLY);
-	lines = get_next_line(fd);
-	if(!lines)
-	{
-		printf("Empty file !\n");
-		exit(2);
-	}
-	while (lines)
-	{
-		v.height++;
-		free(lines);
-		lines = get_next_line(fd);
-	}
-	return (v.height);
+	v->width = ft_strlen(map[0]);
+	if (x < 0 || y < 0 || x >= v->width || y >= v->height)
+		return ;
+	if (map[y][x] == WALL)
+		return ;
+	map[y][x] = WALL;
+	flood_fill(map, x, y - 1, v);
+	flood_fill(map, x + 1, y, v);
+	flood_fill(map, x, y + 1, v);
+	flood_fill(map, x - 1, y, v);
 }

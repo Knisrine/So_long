@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:34:01 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 13:09:05 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/14 18:39:37 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	check_walls(char **map, int height, int width)
 	{
 		if ((!is_wall(map[0]) || !is_wall(map[height - 1])) || ((i > 0
 					&& i < height - 1) && (map[i][0] != WALL || map[i][width
-					- 1] != WALL)))
+				- 1] != WALL)))
 		{
 			free(map);
 			write(2, "Invalid Map !!\n", 15);
@@ -47,8 +47,8 @@ static void	check_walls(char **map, int height, int width)
 
 int	is_rectangl(char **map, int height, var *v)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 1;

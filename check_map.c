@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:55:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 13:08:08 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/14 22:10:54 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,6 @@ int	trans(char *s)
 		s++;
 	}
 	return (1);
-}
-
-static void	flood_fill(char **map, int x, int y, var *v)
-{
-	v->width = ft_strlen(map[0]);
-	if (x < 0 || y < 0 || x >= v->width || y >= v->height)
-		return ;
-	if (map[y][x] == WALL)
-		return ;
-	map[y][x] = WALL;
-	flood_fill(map, x, y - 1, v);
-	flood_fill(map, x + 1, y, v);
-	flood_fill(map, x, y + 1, v);
-	flood_fill(map, x - 1, y, v);
 }
 
 void	player_pos(char **map, int height, int *x, int *y)
@@ -98,7 +84,7 @@ void	ex_door_pos(char **map, int height, int *x, int *y)
 char	**valid_map(char *s)
 {
 	char	*lines;
-	char	**map;
+	// char	**map;
 	var		v;
 	int		fd;
 	int		i;
@@ -107,55 +93,62 @@ char	**valid_map(char *s)
 	char	**new_map;
 
 	fd = 0;
-	map = NULL;
+	v.map = NULL;
 	lines = NULL;
 	v.height = 0;
 	i = 0;
 	v.height = len_map(s, v);
+	printf("len map ---> %d\n", v.height);
 	close(fd);
-	map = malloc(sizeof(char *) * (v.height + 1));
-	if (!map)
+	v.map = malloc(sizeof(char *) * (v.height + 1));
+	if (!v.map)
 		exit(1);
 	fd = open(s, O_RDONLY);
+
 	lines = get_next_line(fd);
 	while (lines)
 	{
 		if (!check_caracters(lines))
 		{
-			free_map(map);
+			free_map(v.map);
 			printf("Error !");
 			exit(1);
 		}
-		map[i] = ft_strdup(lines);
+		v.map[i] = ft_strdup(lines);
 		free(lines);
 		lines = get_next_line(fd);
 		i++;
 	}
-	map[i] = NULL;
-	is_rectangl(map, v.height, &v);
+
+	v.map[i] = NULL;
+	is_rectangl(v.map, v.height, &v);
 	new_map = malloc(sizeof(char *) * (v.height + 1));
 	if (!new_map)
 		exit(1);
 	i = 0;
+
 	while (i < v.height)
 	{
-		new_map[i] = ft_strdup(map[i]);
+		new_map[i] = ft_strdup(v.map[i]);
 		i++;
 	}
 	new_map[i] = NULL;
 	player_pos(new_map, v.height, &x, &y);
 	flood_fill(new_map, x, y, &v);
+
 	i = 0;
 	while (i < v.height)
 	{
 		if (!trans(new_map[i]))
 		{
-			free_maps(map, new_map);
+			free_maps(v.map, new_map);
 			printf("Incomplet Game !\n");
 			exit(1);
 		}
 		i++;
 	}
+
 	free_map(new_map);
-	return (map);
+	free(new_map);
+	return (v.map);
 }

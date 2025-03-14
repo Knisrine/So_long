@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:41:07 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 13:41:22 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/14 22:30:25 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	move_down(var *v)
 	v->put_plr->instances->y += 32;
 	v->x += 1;
 }
+
 void	press_s(var *v)
 {
 	if (v->map[v->x + 1][v->y] != WALL)
@@ -40,4 +41,5 @@ void	press_s(var *v)
 		else
 			move_down(v);
 	}
+	exit_player(v);
 }

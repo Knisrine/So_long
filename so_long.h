@@ -54,8 +54,14 @@ void	image_error(var *v);
 void	player_pos(char **map, int height, int *x, int *y);
 void	ex_door_pos(char **map, int height, int *x, int *y);
 void	my_hook(mlx_key_data_t keydata, void *param);
+void	flood_fill(char **map, int x, int y, var *v);
+void	set_items(var *v);
 void	press_w(var *v);
 void	press_s(var *v);
 void	press_a(var *v);
 void	press_d(var *v);
+void	exit_player(var *v);
+void	count_items(var *v);
+void	load_textures(var *v);
+
 #endif

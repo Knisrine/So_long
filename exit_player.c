@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len_map.c                                          :+:      :+:    :+:   */
+/*   exit_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 14:51:26 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 21:44:24 by nikhtib          ###   ########.fr       */
+/*   Created: 2025/03/14 22:29:21 by nikhtib           #+#    #+#             */
+/*   Updated: 2025/03/14 22:30:04 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	len_map(char *s, var v)
+void	exit_player(var *v)
 {
-	int		fd;
-	char	*lines;
-
-	fd = 0;
-	lines = NULL;
-	fd = open(s, O_RDONLY);
-	lines = get_next_line(fd);
-	if(!lines)
+	if (v->collct == 0 && (v->x == v->j) && (v->y == v->i))
 	{
-		printf("Empty file !\n");
-		exit(2);
+		mlx_delete_image(v->ptr, v->put_plr);
+		free_map(v->map);
+		exit(0);
 	}
-	while (lines)
-	{
-		v.height++;
-		free(lines);
-		lines = get_next_line(fd);
-	}
-	return (v.height);
 }
