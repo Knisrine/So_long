@@ -12,10 +12,11 @@
 
 #include "so_long.h"
 
-int		len_map(char *s, var v)
+int	len_map(char *s, var v)
 {
 	int		fd;
 	char	*lines;
+
 	fd = 0;
 	lines = NULL;
 	fd = open(s, O_RDONLY);

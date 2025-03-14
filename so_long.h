@@ -14,6 +14,8 @@ typedef struct variables
 	mlx_image_t*	put_door;
 	mlx_image_t*	put_col;
 	mlx_image_t*	put_ennemi;
+	mlx_image_t*	put_dr2;
+	mlx_texture_t*	dr2_texture;
 	mlx_texture_t*	f_texture;
 	mlx_texture_t*	w_texture;
 	mlx_texture_t*	col_texture;
@@ -33,19 +35,12 @@ typedef struct variables
 	int				j;
 }   var;
 
-typedef struct s_data
-{
-	void *player_img;
-	void *collct_img;
-	void *exitdr_img;
-}	data;
-
-#define	wall '1'
-#define	floor '0'
-#define	coll 'C'
-#define	plr 'P'
-#define	ex_dr 'E'
-#define	ennemi 'e'
+#define	WALL '1'
+#define	FLOOR '0'
+#define	COLL 'C'
+#define	PLR 'P'
+#define	EX_DR 'E'
+#define	ENNEMI 'e'
 #define TILE_SIZE 32
 int		main(int ac, char **av);
 char	**valid_map(char *s);
@@ -54,8 +49,13 @@ int		len_map(char *s, var v);
 int		is_rectangl(char **map, int height, var *v);
 void	free_maps(char **map, char **new_map);
 void	free_map(char **map);
-void	print_error(var *v);
+void	texture_error(var *v);
+void	image_error(var *v);
 void	player_pos(char **map, int height, int *x, int *y);
 void	ex_door_pos(char **map, int height, int *x, int *y);
-
+void	my_hook(mlx_key_data_t keydata, void *param);
+void	press_w(var *v);
+void	press_s(var *v);
+void	press_a(var *v);
+void	press_d(var *v);
 #endif

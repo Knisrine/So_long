@@ -1,7 +1,7 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 NAME = so_long
-MFILES = so_long.c free_maps.c check_ext.c len_map.c check_map.c is_rectangl.c print_error.c ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
+MFILES = so_long.c free_maps.c check_ext.c len_map.c check_map.c is_rectangl.c print_error.c press_w.c press_d.c  press_s.c press_a.c my_hook.c ./gnl/get_next_line.c ./gnl/get_next_line_utils.c
 OFILES = $(MFILES:.c=.o)
 
 all : $(NAME)

@@ -12,18 +12,18 @@
 
 #include "so_long.h"
 
-void free_map(char **map)
+void	free_map(char **map)
 {
-	while(*map)
+	while (*map)
 	{
 		free(*map);
 		map++;
 	}
 }
-void    free_maps(char **map, char **new_map)
+void	free_maps(char **map, char **new_map)
 {
-    free_map(map);
-    free (map);
-    free_map(new_map);
-    free(new_map);
+	free_map(map);
+	free(map);
+	free_map(new_map);
+	free(new_map);
 }
