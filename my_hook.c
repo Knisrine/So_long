@@ -21,6 +21,7 @@ static void	press_esc(var *v)
 void	my_hook(mlx_key_data_t keydata, void *param)
 {
 	var	*v;
+
 	v = (var *)param;
 	if (keydata.key == MLX_KEY_W && keydata.action)
 		press_w(v);

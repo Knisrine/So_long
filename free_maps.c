@@ -14,8 +14,8 @@
 
 void	free_map(char **map)
 {
-	if(!map || !(*map))
-		return;
+	if (!map || !(*map))
+		return ;
 	while (*map)
 	{
 		free(*map);

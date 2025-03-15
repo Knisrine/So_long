@@ -8,6 +8,14 @@
 # include "./gnl/get_next_line.h"
 #include "./MLX42/include/MLX42/MLX42.h"
 
+#define	WALL '1'
+#define	FLOOR '0'
+#define	COLL 'C'
+#define	PLR 'P'
+#define	EX_DR 'E'
+#define	ENNEMI 'e'
+#define TILE_SIZE 32
+
 typedef struct variables
 {
 	mlx_image_t*	put_floor;
@@ -31,20 +39,15 @@ typedef struct variables
     int				height;
     int				width;
 	char			**map;
+	char			**new_map;
 	int				count_move;
 	int				x;
 	int				y;
 	int				i;
 	int				j;
+	int				fd;
 }   var;
 
-#define	WALL '1'
-#define	FLOOR '0'
-#define	COLL 'C'
-#define	PLR 'P'
-#define	EX_DR 'E'
-#define	ENNEMI 'e'
-#define TILE_SIZE 32
 int		main(int ac, char **av);
 char	**valid_map(char *s, var v);
 void	check_ext(char *s);
@@ -58,6 +61,8 @@ void	player_pos(char **map, int height, int *x, int *y);
 void	ex_door_pos(char **map, int height, int *x, int *y);
 void	my_hook(mlx_key_data_t keydata, void *param);
 void	flood_fill(char **map, int x, int y, var *v);
+void	ex_door_pos(char **map, int height, int *x, int *y);
+void	player_pos(char **map, int height, int *x, int *y);
 void	set_items(var *v);
 void	press_w(var *v);
 void	press_s(var *v);

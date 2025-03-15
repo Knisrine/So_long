@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:14:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/15 15:39:52 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/15 19:14:28 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,19 @@ static void	if_conditions(var *v)
 {
 	if ((v->player > 1 || v->player < 1))
 	{
-		printf(" One player Required !\n");
+		write(2, " One player Required !\n", 24);
 		free_map(v->map);
 		exit(1);
 	}
 	if (v->exit_door > 1 || v->exit_door < 1)
 	{
-		printf(" One Exit_Door Required !\n");
+		write(2, " One Exit_Door Required !\n", 27);
 		free_map(v->map);
 		exit(1);
 	}
 	if (v->collct < 1)
 	{
-		printf(" At least one collct !\n");
+		write(2, " At least one collct !\n", 24);
 		free_map(v->map);
 		exit(1);
 	}

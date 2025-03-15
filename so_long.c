@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:59:56 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/15 17:21:12 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/15 21:45:52 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,10 @@ void	set_the_floor(var *v)
 int	main(int ac, char **av)
 {
 	var	v;
-	
+
 	v.height = 0;
 	if (ac == 2)
 	{
-		system("leaks so_long");
 		v.count_move = 0;
 		check_ext(av[1]);
 		v.map = valid_map(av[1], v);

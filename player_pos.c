@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   len_map.c                                          :+:      :+:    :+:   */
+/*   player_pos.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 14:51:26 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/15 19:46:31 by nikhtib          ###   ########.fr       */
+/*   Created: 2025/03/15 20:10:30 by nikhtib           #+#    #+#             */
+/*   Updated: 2025/03/15 21:45:03 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	len_map(char *s, var v)
+void	player_pos(char **map, int height, int *x, int *y)
 {
-	char	*lines;
+	int	i;
+	int	j;
 
-	lines = NULL;
-	v.fd = open(s, O_RDONLY);
-	lines = get_next_line(v.fd);
-	if (!lines)
+	j = 0;
+	while (j < height)
 	{
-		close(v.fd);
-		write(2, "Empty file !\n", 13);
-		exit(2);
+		i = 0;
+		while (i < ft_strlen(map[j]))
+		{
+			if (map[j][i] == 'P')
+			{
+				*x = i;
+				*y = j;
+				return ;
+			}
+			i++;
+		}
+		j++;
 	}
-	while (lines)
-	{
-		v.height++;
-		free(lines);
-		lines = get_next_line(v.fd);
-	}
-	close(v.fd);
-	return (v.height);
 }
