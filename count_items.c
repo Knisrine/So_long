@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:14:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 19:11:59 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/15 15:39:52 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	check_collct(char *s)
 static int	check_player(char *s)
 {
 	static int	count;
-	
+
 	while (*s)
 	{
 		if (*s == 'P')

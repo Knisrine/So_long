@@ -1,6 +1,8 @@
 #ifndef SO_LONG_H
 #define SO_LONG_H
+//////////////////////////////////
 # include <stdio.h>
+////////////////////////////////////
 # include <fcntl.h>
 # include <stdlib.h>
 # include "./gnl/get_next_line.h"
@@ -29,6 +31,7 @@ typedef struct variables
     int				height;
     int				width;
 	char			**map;
+	int				count_move;
 	int				x;
 	int				y;
 	int				i;
@@ -43,7 +46,7 @@ typedef struct variables
 #define	ENNEMI 'e'
 #define TILE_SIZE 32
 int		main(int ac, char **av);
-char	**valid_map(char *s);
+char	**valid_map(char *s, var v);
 void	check_ext(char *s);
 int		len_map(char *s, var v);
 int		is_rectangl(char **map, int height, var *v);

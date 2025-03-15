@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:41:07 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 22:30:25 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/14 23:30:16 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void	move_down(var *v)
 {
 	v->put_plr->instances->y += 32;
 	v->x += 1;
+	v->count_move++;
+	printf("%d\n", v->count_move);
 }
 
 void	press_s(var *v)

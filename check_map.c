@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:55:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 22:10:54 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/15 17:21:34 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ static int	check_caracters(char *s)
 {
 	while (*s)
 	{
-		if ((*s != '1' && *s != '0') && (*s != 'P' && *s != 'C') && (*s != 'E'
-				&& *s != 'e'))
-			return (0);
+		if ((*s != '1' && *s != '0') && (*s != 'P' && *s != 'C') && *s != 'E')
+			return(0);
 		s++;
 	}
 	return (1);
@@ -81,11 +80,9 @@ void	ex_door_pos(char **map, int height, int *x, int *y)
 	}
 }
 
-char	**valid_map(char *s)
+char	**valid_map(char *s, var v)
 {
 	char	*lines;
-	// char	**map;
-	var		v;
 	int		fd;
 	int		i;
 	int		x;
@@ -98,20 +95,18 @@ char	**valid_map(char *s)
 	v.height = 0;
 	i = 0;
 	v.height = len_map(s, v);
-	printf("len map ---> %d\n", v.height);
 	close(fd);
 	v.map = malloc(sizeof(char *) * (v.height + 1));
 	if (!v.map)
 		exit(1);
 	fd = open(s, O_RDONLY);
-
 	lines = get_next_line(fd);
 	while (lines)
 	{
-		if (!check_caracters(lines))
+		if(!check_caracters(lines))
 		{
-			free_map(v.map);
-			printf("Error !");
+			// free_map(v.map);
+			printf("Error !\n");
 			exit(1);
 		}
 		v.map[i] = ft_strdup(lines);

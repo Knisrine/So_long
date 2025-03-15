@@ -6,13 +6,11 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:44:21 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 22:28:18 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/15 15:52:15 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-
 
 static void	press_esc(var *v)
 {
@@ -23,7 +21,6 @@ static void	press_esc(var *v)
 void	my_hook(mlx_key_data_t keydata, void *param)
 {
 	var	*v;
-
 	v = (var *)param;
 	if (keydata.key == MLX_KEY_W && keydata.action)
 		press_w(v);

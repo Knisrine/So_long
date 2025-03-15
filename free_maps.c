@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 20:15:23 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 22:10:47 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/15 17:15:18 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	free_map(char **map)
 {
+	if(!map || !(*map))
+		return;
 	while (*map)
 	{
 		free(*map);

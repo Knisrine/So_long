@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 14:51:26 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 21:44:24 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/15 17:00:09 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ int	len_map(char *s, var v)
 	lines = NULL;
 	fd = open(s, O_RDONLY);
 	lines = get_next_line(fd);
-	if(!lines)
+	if (!lines)
 	{
+		///close file
 		printf("Empty file !\n");
 		exit(2);
 	}

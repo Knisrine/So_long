@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 16:59:56 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 22:07:57 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/15 17:21:12 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,17 @@ void	set_the_floor(var *v)
 	}
 }
 
-void check_leak() {
-	system("leaks -q so_long");
-}
-
 int	main(int ac, char **av)
 {
 	var	v;
-
+	
 	v.height = 0;
-	atexit(check_leak);
 	if (ac == 2)
 	{
+		system("leaks so_long");
+		v.count_move = 0;
 		check_ext(av[1]);
-		v.map = valid_map(av[1]);
+		v.map = valid_map(av[1], v);
 		v.height = len_map(av[1], v);
 		v.width = ft_strlen(v.map[0]);
 		count_items(&v);
@@ -81,7 +78,6 @@ int	main(int ac, char **av)
 			return (1);
 		load_textures(&v);
 		set_the_floor(&v);
-
 		set_items(&v);
 		put_player(&v);
 		player_pos(v.map, v.height, &v.y, &v.x);
