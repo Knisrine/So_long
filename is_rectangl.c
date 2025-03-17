@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 15:34:01 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/15 21:44:32 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/16 23:30:51 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int	is_rectangl(char **map, int height, var *v)
 	{
 		if (ft_strlen(map[i++]) != ft_strlen(map[j++]))
 		{
-			perror("Form Invalid !\n");
+			// WAAA FREEEEEEEEE
+			free(v->map);
+			write (1,"Form Invalid !\n", 14);
 			exit(1);
 		}
 		check_walls(map, height, ft_strlen(*map));

@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:55:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/15 21:43:19 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/17 00:46:46 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	part2(var *v, char *s)
 	lines = get_next_line(v->fd);
 	while (lines)
 	{
+		v->map[i] = NULL;
 		if (!check_caracters(lines))
 		{
 			free_map(v->map);
@@ -65,7 +66,6 @@ void	part3(var *v)
 	int	i;
 
 	i = 0;
-	v->height = 0;
 	while (i < v->height)
 	{
 		v->new_map[i] = ft_strdup(v->map[i]);
@@ -73,7 +73,7 @@ void	part3(var *v)
 	}
 	v->new_map[i] = NULL;
 	player_pos(v->new_map, v->height, &v->x, &v->y);
-	flood_fill(v->new_map, v->x, v->y, v);
+	flood_fill(v->x, v->y, v);
 	i = 0;
 	while (i < v->height)
 	{

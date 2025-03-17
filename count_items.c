@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:14:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/15 19:14:28 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/16 23:33:18 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ static int	check_exit_door(char *s)
 
 static void	if_conditions(var *v)
 {
-	if ((v->player > 1 || v->player < 1))
+	if ((v->player != 1))
 	{
 		write(2, " One player Required !\n", 24);
 		free_map(v->map);
 		exit(1);
 	}
-	if (v->exit_door > 1 || v->exit_door < 1)
+	if (v->exit_door != 1)
 	{
 		write(2, " One Exit_Door Required !\n", 27);
 		free_map(v->map);
