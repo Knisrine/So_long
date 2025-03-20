@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 22:29:21 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 22:30:04 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/17 02:42:22 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	exit_player(var *v)
 	{
 		mlx_delete_image(v->ptr, v->put_plr);
 		free_map(v->map);
+		free(v->map);
 		exit(0);
 	}
 }

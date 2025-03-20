@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 03:56:19 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/16 18:13:57 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/17 20:09:12 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,22 @@ int	ft_strcmp(char *s1, char *s2)
 	return (0);
 }
 
+static char	*ft_strrchr(const char *s, int c)
+{
+	int		i;
+	char	*str;
+
+	str = (char *)s;
+	i = ft_strlen(str);
+	while (i >= 0)
+	{
+		if (str[i] == (char)c)
+			return (&str[i]);
+		i--;
+	}
+	return (0);
+}
+
 void	check_ext(char *s)
 {
 	char	*ext;
@@ -37,15 +53,15 @@ void	check_ext(char *s)
 	if (n < 0)
 	{
 		write(2, "File Not Found or dont have right permissions!\n", 47);
-		close (n);
+		close(n);
 		exit(2);
 	}
-	str = ft_strchr(s, '.');
+	str = ft_strrchr(s, '.');
 	if (ft_strcmp(ext, str))
 	{
-		close (n);
+		close(n);
 		write(2, "Invalid extention\n", 18);
 		exit(2);
 	}
-	close (n);
+	close(n);
 }

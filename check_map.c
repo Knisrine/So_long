@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 14:55:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/17 00:46:46 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/17 02:47:27 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	part2(var *v, char *s)
 		if (!check_caracters(lines))
 		{
 			free_map(v->map);
+			free(v->map);
 			write(2, "Error !\n", 8);
 			exit(1);
 		}

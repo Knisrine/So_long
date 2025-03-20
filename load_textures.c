@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:20:18 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/14 18:37:47 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/17 21:08:46 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,10 @@ static void	load_textures_p2(var *v)
 	v->put_door = mlx_texture_to_image(v->ptr, v->door_texture);
 	if (!v->put_door)
 		texture_error(v);
-	v->ennemi_texture = mlx_load_png("./textures/ennemi.png");
-	if (!v->ennemi_texture)
-		texture_error(v);
 }
 
 static void	load_textures_p3(var *v)
 {
-	v->put_ennemi = mlx_texture_to_image(v->ptr, v->ennemi_texture);
-	if (!v->put_ennemi)
-		texture_error(v);
 	v->plr_texture = mlx_load_png("./textures/player.png");
 	if (!v->plr_texture)
 		texture_error(v);

@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 17:44:21 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/15 15:52:15 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/17 02:43:53 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	press_esc(var *v)
 {
 	free_map(v->map);
+	free(v->map);
 	exit(1);
 }
 

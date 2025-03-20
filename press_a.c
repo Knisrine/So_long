@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:43:19 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/15 19:15:50 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/20 15:03:48 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	move_left(var *v)
 	v->put_plr->instances->x -= 32;
 	v->y -= 1;
 	v->count_move++;
-	printf("%d\n", v->count_move);
+	smll_putnbr(v->count_move);
+	ft_putchar('\n');
 }
 
 void	press_a(var *v)
@@ -33,8 +34,8 @@ void	press_a(var *v)
 			v->put_plr = mlx_texture_to_image(v->ptr, v->plr_texture);
 			if (!v->put_plr)
 			{
-				printf("ffl");
 				free_map(v->map);
+				free(v->map);
 				exit(1);
 			}
 			mlx_image_to_window(v->ptr, v->put_plr, (v->y * 32), (v->x * 32));

@@ -6,7 +6,7 @@
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 18:14:41 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/16 23:33:18 by nikhtib          ###   ########.fr       */
+/*   Updated: 2025/03/17 02:39:16 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,21 @@ static void	if_conditions(var *v)
 	{
 		write(2, " One player Required !\n", 24);
 		free_map(v->map);
+		free(v->map);
 		exit(1);
 	}
 	if (v->exit_door != 1)
 	{
 		write(2, " One Exit_Door Required !\n", 27);
 		free_map(v->map);
+		free(v->map);
 		exit(1);
 	}
 	if (v->collct < 1)
 	{
 		write(2, " At least one collct !\n", 24);
 		free_map(v->map);
+		free(v->map);
 		exit(1);
 	}
 }

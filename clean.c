@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flood_fill.c                                       :+:      :+:    :+:   */
+/*   clean.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nikhtib <nikhtib@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/14 18:28:44 by nikhtib           #+#    #+#             */
-/*   Updated: 2025/03/17 16:52:21 by nikhtib          ###   ########.fr       */
+/*   Created: 2025/03/17 15:59:19 by nikhtib           #+#    #+#             */
+/*   Updated: 2025/03/17 16:39:04 by nikhtib          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	flood_fill(int x, int y, var *v)
+void	clean(var *v)
 {
-	v->width = ft_strlen(v->map[0]);
-	if (x < 0 || y < 0 || x >= v->width || y >= v->height)
-		return ;
-	if (v->new_map[y][x] == WALL)
-		return ;
-	v->new_map[y][x] = WALL;
-	flood_fill(x, y - 1, v);
-	flood_fill(x + 1, y, v);
-	flood_fill(x, y + 1, v);
-	flood_fill(x - 1, y, v);
+	if (v->w_texture)
+		mlx_delete_texture(v->w_texture);
+	if (v->f_texture)
+		mlx_delete_texture(v->f_texture);
+	if (v->col_texture)
+		mlx_delete_texture(v->col_texture);
+	if (v->door_texture)
+		mlx_delete_texture(v->door_texture);
+	if (v->plr_texture)
+		mlx_delete_texture(v->plr_texture);
+	free_map(v->map);
+	free(v->map);
+	mlx_terminate(v->ptr);
 }
